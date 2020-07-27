@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const genres = [
-    {id:1, name:"Action"},
-    {id:2, name:"Horror"},
-    {id:3, name:"Comedy"}
+    
 ]
+
+mongoose.connect('mongodb://localhost/vidly', {useNewUrlParser:true, useUnifiedTopology:true});
 
 router.get('/', (req, res)=>{
     res.send(genres);
