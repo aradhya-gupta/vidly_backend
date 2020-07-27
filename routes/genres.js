@@ -49,7 +49,7 @@ router.put('/:id', async (req, res) => {
         if (!genre) return res.status(404).send('The genre with given id does not exist!');
         //validate the input name
         const { error } = validateGenre(req.body);
-        if (error) return res.status(400).send('The genre name is not valid!');
+        if (error) return res.status(400).send(error.details[0].message);
     
         //else put new genre 
         genre.name = req.body.name;
