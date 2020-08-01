@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const {Customer, validateCustomer} = require('../models/customer');
+const auth = require('../middleware/auth');
+const { Customer, validateCustomer } = require('../models/customer');
 
 router.get('/', async (req, res) => {
     const customers = await Customer.find();
@@ -18,7 +19,7 @@ router.get('/:id', async (req, res) => {
     else return res.status(400).send('Invalid Id.');
 
 })
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const { error } = validateCustomer(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
     res.send(customer);
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     //check if genre with given id exists
     if (mongoose.isValidObjectId(req.params.id)) {
         const customer = await Customer.findById(req.params.id);
@@ -50,7 +51,7 @@ router.put('/:id', async (req, res) => {
 
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     //check if genre with given id exists
     if (mongoose.isValidObjectId(req.params.id)) {
         const customer = await Customer.findByIdAndRemove(req.params.id);
