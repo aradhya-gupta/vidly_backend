@@ -1,0 +1,1 @@
+This is the backend project for vidly react project created using node, express and mongodb.
