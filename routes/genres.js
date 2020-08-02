@@ -3,10 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const { Genre, validateGenre } = require('../models/genre');
 const auth = require('../middleware/auth');
-const admin =  require('../middleware/admin');
+const admin = require('../middleware/admin');
 
 router.get('/', async (req, res) => {
-    // if (!genres) return res.status(404).send("No genres in database!");
     const genres = await Genre.find().sort('name');
     res.send(genres);
 })
